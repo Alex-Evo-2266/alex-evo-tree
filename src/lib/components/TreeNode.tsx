@@ -1,6 +1,11 @@
 import { TreeChildren } from "./TreeChildren";
 import { useTreeContext } from "../context/TreeContext";
 import type { TreeNodeModel } from "../types/TreeNode";
+import {
+
+    useDraggable,
+
+} from "@dnd-kit/core";
 
 interface Props<T>{
 
@@ -15,38 +20,53 @@ export function TreeNode<T>({
     depth,
 }:Props<T>){
 
-    const tree=useTreeContext();
+    const tree = useTreeContext();
+    const {setNodeRef,listeners,attributes,transform,isDragging}=useDraggable({
+        id:node.id,
+    });
 
     return(
 
-        <div>
+        <div className="tree-node-container">
 
             <div
                 className="tree-node"
+                ref={setNodeRef}
+                {...listeners}
+                {...attributes}
                 style={{
-                    paddingLeft:depth*24
+                    opacity:isDragging?0.4:1,
+                    transform:transform
+                    ?`translate(${transform.x}px,${transform.y}px)`
+                    :undefined
                 }}
+                
             >
 
                 {tree.renderNode(node)}
 
             </div>
 
-            {!node.collapsed && node.children && (
+            <div
+                className={`tree-children ${
+                    isDragging ? "unvisible" : ""
+                }`}
+            >
+                {!node.collapsed && node.children && (
 
-                <TreeChildren
+                    <TreeChildren
 
-                    nodes={node.children}
+                        nodes={node.children}
 
-                    parentId={node.id}
+                        parentId={node.id}
 
-                    depth={depth+1}
+                        depth={depth+1}
 
-                    onInsert={tree.onInsert}
+                        onInsert={tree.onInsert}
+                    />
 
-                />
-
-            )}
+                )}
+            </div>
 
         </div>
 

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { MoveEvent } from "./MoveEvent";
 import type { TreeNodeModel } from "./TreeNode";
 
+
 export interface TreeBuilderProps<T = unknown> {
 
     items: TreeNodeModel<T>[];
@@ -11,7 +12,7 @@ export interface TreeBuilderProps<T = unknown> {
     ): ReactNode;
 
     onMove?(
-        event: MoveEvent<T>,
+        event: MoveEvent,
     ): void;
 
     onInsert?(

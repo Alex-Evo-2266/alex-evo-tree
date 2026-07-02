@@ -26,8 +26,7 @@ export function TreeChildren<T>({
 
     return(
 
-        <>
-
+        <div style={{paddingLeft:depth*24}}>
             <TreeDropZone
                 parentId={parentId}
                 index={0}
@@ -53,7 +52,7 @@ export function TreeChildren<T>({
 
             ))}
 
-        </>
+        </div>
 
     )
 

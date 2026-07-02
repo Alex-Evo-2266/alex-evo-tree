@@ -1,3 +1,4 @@
+import { useDroppable } from "@dnd-kit/core";
 
 interface Props {
 
@@ -20,9 +21,21 @@ export function TreeDropZone({
 
 }: Props) {
 
+      const {setNodeRef, isOver} = useDroppable({
+        id:`${parentId}:${index}`,
+        data:{
+            parentId,
+            index,
+        }
+    });
+
     return (
 
-        <div className="tree-drop-zone">
+        <div ref={setNodeRef} 
+            className={isOver
+                    ? "tree-drop-zone active"
+                    : "tree-drop-zone"
+                }>
 
             <button
                 className="tree-insert-button"

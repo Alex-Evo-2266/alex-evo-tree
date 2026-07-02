@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import './page.css';
-import { TreeBuilder, type TreeNodeModel } from '../lib';
+import { TreeBuilder, type MoveEvent, type TreeNodeModel } from '../lib';
+import { moveNode } from '../lib/utils/moveNode';
 
 type User = {
   name: string;
@@ -13,11 +14,35 @@ const tree: TreeNodeModel[] = [{
   children: [{
     id:"testsub",
     title:"testsub"
+  },{
+    id:"testsub2",
+    title:"testsub2"
+  },{
+    id:"testsub3",
+    title:"testsub3"
+  }]
+},
+{
+  id: "s2",
+  title: "sdfrdgh2",
+  children: [{
+    id:"testsub21",
+    title:"testsub21"
+  },{
+    id:"testsub22",
+    title:"testsub22"
+  },{
+    id:"testsub23",
+    title:"testsub23"
   }]
 }]
 
 export const Page: React.FC = () => {
-  const [user, setUser] = React.useState<User>();
+  const [data, setData] = React.useState<TreeNodeModel[]>(tree);
+
+  const move = useCallback((event:MoveEvent)=>{
+    setData(prev=>moveNode(prev, event.sourceId, event.parentId, event.index))
+  },[])
 
   return (
     <article>
@@ -58,8 +83,9 @@ export const Page: React.FC = () => {
           .
         </p>
         <TreeBuilder
-          items={tree}
+          items={data}
           onInsert={(...e)=>console.log(e)}
+          onMove={move}
           renderNode={(node) => (
 
               <div style={{padding: "5px", background: "red", borderRadius: "10px", margin: "5px"}}>

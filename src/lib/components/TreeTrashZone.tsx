@@ -1,8 +1,11 @@
 import { useDndContext, useDroppable } from "@dnd-kit/core";
+import { useTreeContext } from "../context/TreeContext";
 
 export function TreeTrashZone() {
 
     const {active} = useDndContext()
+    const tree = useTreeContext();
+    
     const { setNodeRef, isOver } = useDroppable({
         id: "trash",
         data: {
@@ -25,7 +28,11 @@ export function TreeTrashZone() {
                 }
                 `}
         >
-            🗑 Drop here to delete
+            {
+                tree.renderTrash ? 
+                tree.renderTrash() :
+                "🗑 Drop here to delete"
+            }
         </div>
     );
 }

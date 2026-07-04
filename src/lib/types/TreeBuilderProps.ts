@@ -11,6 +11,8 @@ export interface TreeBuilderProps<T = unknown> {
         node: TreeNodeModel<T>,
     ): ReactNode;
 
+    renderTrash?:()=> ReactNode;
+
     onMove?(
         event: MoveEvent,
     ): void;

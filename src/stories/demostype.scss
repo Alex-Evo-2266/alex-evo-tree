@@ -1,0 +1,106 @@
+/* ----- Зона удаления (Drop Zone) ----- */
+.delete-zone {
+  width: 100%;
+  max-width: 400px;
+  min-height: 140px;
+  margin: 20px auto;
+  border: 3px dashed #ccc;
+  border-radius: 20px;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+/* Внутренний контент */
+.delete-zone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  color: #999;
+  text-align: center;
+  pointer-events: none; /* чтобы не мешать drag-событиям */
+}
+
+.trash-icon {
+  color: #ccc;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.delete-text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.delete-hint {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* ----- Состояния при перетаскивании (Drag & Drop) ----- */
+
+/* 1. Элемент наведён на корзину (dragover) */
+.delete-zone.drag-over {
+  border-color: #e74c3c;
+  background: #ffeaea;
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.2);
+}
+
+.delete-zone.drag-over .trash-icon {
+  color: #e74c3c;
+  transform: scale(1.2) rotate(-10deg);
+}
+
+.delete-zone.drag-over .delete-text {
+  color: #e74c3c;
+}
+
+/* 2. Элемент "взяли" (dragenter) — дополнительная анимация */
+.delete-zone.drag-enter {
+  border-style: solid;
+  background: #ffdddd;
+}
+
+/* 3. Скрытый индикатор (опционально) */
+.delete-zone .drop-indicator {
+  display: none;
+  position: absolute;
+  inset: 10px;
+  border: 2px solid #e74c3c;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.delete-zone.drag-over .drop-indicator {
+  display: block;
+}
+
+/* ----- Перетаскиваемые элементы ----- */
+.draggable-item {
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 8px;
+  background: #3498db;
+  color: #fff;
+  border-radius: 30px;
+  cursor: grab;
+  user-select: none;
+  transition: 0.2s;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.draggable-item:active {
+  cursor: grabbing;
+}
+
+.draggable-item.dragging {
+  opacity: 0.4;
+  transform: scale(0.95);
+}

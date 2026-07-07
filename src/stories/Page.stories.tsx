@@ -811,14 +811,12 @@ const data: TreeNodeModel<NodeData>[] = [
                 id: "1",
                 title: "Root 1",
                 data: { title: "📁 Root 1" },
-                icon: <span>📁</span>,
                 type: "folder",
                 children: [
                     {
                         id: "1-1",
                         title: "Child 1-1",
                         data: { title: "📄 Child 1-1" },
-                        icon: <span>📄</span>,
                         type: "file",
                         children: [],
                     },
@@ -826,7 +824,6 @@ const data: TreeNodeModel<NodeData>[] = [
                         id: "1-2",
                         title: "Child 1-2",
                         data: { title: "⚙️ Child 1-2" },
-                        icon: <span>⚙️</span>,
                         type: "config",
                         children: [],
                     },
@@ -836,14 +833,12 @@ const data: TreeNodeModel<NodeData>[] = [
                 id: "2",
                 data: { title: "📁 Root 2" },
                 title: "Root 2",
-                icon: <span>📁</span>,
                 type: "folder",
                 children: [
                     {
                         id: "2-1",
                         title: "Child 2-1",
                         data: { title: "🔒 Child 2-1" },
-                        icon: <span>🔒</span>,
                         type: "protected",
                         disabled: true,
                     },

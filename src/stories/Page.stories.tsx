@@ -991,15 +991,8 @@ export const notMove: Story = {
             },
         ];
 
-        const [data, setData] = useState<TreeNodeModel<NodeData>[]>(dataWithIcons);
+        const [data] = useState<TreeNodeModel<NodeData>[]>(dataWithIcons);
 
-        function deleteHandler(id: string) {
-            setData(prev => {
-                const clone = cloneTree(prev);
-                removeNode(clone, id);
-                return clone;
-            });
-        }
 
         return (
             <div style={{ padding: 20, height: '500px' }}>

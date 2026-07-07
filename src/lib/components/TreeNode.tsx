@@ -23,6 +23,7 @@ export function TreeNode<T>({
     const tree = useTreeContext();
     const {setNodeRef,listeners,attributes,transform,isDragging}=useDraggable({
         id:node.id,
+        disabled: !tree.onMove && !tree.onDelete
     });
 
     return(
@@ -61,8 +62,6 @@ export function TreeNode<T>({
                         parentId={node.id}
 
                         depth={depth+1}
-
-                        onInsert={tree.onInsert}
                     />
 
                 )}

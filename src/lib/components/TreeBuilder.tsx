@@ -43,30 +43,37 @@ export function TreeBuilder<T>(
 
     }
 
+    const position = props.trashPosition || 'bottom';
+
     return(
 
         <TreeContext.Provider value={props}>
 
             <DndContext onDragEnd={handleDragEnd}>
-                <TreeTrashZone/>
-                <div className="tree-builder">
+                <div className={`tree-builder-wrapper tree-trash-${position}`}>
+                    {
+                        props.onDelete && (position === 'top' || position === 'left') &&
+                        <TreeTrashZone/>
+                    }
+                    <div className="tree-builder">
 
-                    <TreeChildren
+                        <TreeChildren
 
-                        nodes={props.items}
+                            nodes={props.items}
 
-                        parentId={null}
+                            parentId={null}
 
-                        depth={0}
+                            depth={0}
+                        />
 
-                        onInsert={props.onInsert}
-
-                    />
-
+                    </div>
+                    {
+                        props.onDelete && (position === 'bottom' || position === 'right') &&
+                        <TreeTrashZone/>
+                    }
                 </div>
+                
             </DndContext>
-
-            
 
         </TreeContext.Provider>
 

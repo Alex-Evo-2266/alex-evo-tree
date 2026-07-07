@@ -1,6 +1,7 @@
 import { TreeNode } from "./TreeNode";
 import { TreeDropZone } from "./TreeDropZone";
 import type { TreeNodeModel } from "../types/TreeNode";
+import { useTreeContext } from "../context/TreeContext";
 
 interface Props<T> {
 
@@ -10,28 +11,27 @@ interface Props<T> {
 
     depth:number;
 
-    onInsert?(
-        parentId:string|null,
-        index:number,
-    ):void;
-
 }
 
 export function TreeChildren<T>({
     nodes,
     parentId,
-    depth,
-    onInsert,
+    depth
 }:Props<T>){
+
+    const {onInsert, onMove} = useTreeContext()
 
     return(
 
         <div style={{paddingLeft:depth*24}}>
-            <TreeDropZone
-                parentId={parentId}
-                index={0}
-                onInsert={onInsert}
-            />
+            {
+                !!onMove || !!onInsert ? 
+                <TreeDropZone
+                    parentId={parentId}
+                    index={0}
+                    onInsert={onInsert}
+                />:null
+            }
 
             {nodes.map((node,index)=>(
 
@@ -41,12 +41,14 @@ export function TreeChildren<T>({
                         node={node}
                         depth={depth}
                     />
-
-                    <TreeDropZone
-                        parentId={parentId}
-                        index={index+1}
-                        onInsert={onInsert}
-                    />
+                    {
+                        !!onMove || !!onInsert ? 
+                        <TreeDropZone
+                            parentId={parentId}
+                            index={index+1}
+                            onInsert={onInsert}
+                        />:null
+                    }
 
                 </div>
 

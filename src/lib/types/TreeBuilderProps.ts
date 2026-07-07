@@ -13,6 +13,8 @@ export interface TreeBuilderProps<T = unknown> {
 
     renderTrash?:()=> ReactNode;
 
+    trashPosition?: 'top' | 'bottom' | 'left' | 'right'; 
+
     onMove?(
         event: MoveEvent,
     ): void;
@@ -25,14 +27,4 @@ export interface TreeBuilderProps<T = unknown> {
     onDelete?(
         id: string,
     ): void;
-
-    onRename?(
-        id: string,
-        title: string,
-    ): void;
-
-    allowDrop?(
-        drag: TreeNodeModel<T>,
-        target: TreeNodeModel<T>,
-    ): boolean;
 }

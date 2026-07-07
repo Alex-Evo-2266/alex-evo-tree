@@ -85,3 +85,104 @@
         visibility: visible;
     }
 }
+
+// style/tree.scss
+
+.tree-builder-wrapper {
+    display: flex;
+    position: relative;
+    gap: 20px;
+    min-height: 300px;
+
+    // Вариант: сверху
+    &.tree-trash-top {
+        flex-direction: column;
+        
+        .tree-trash-zone {
+            width: 100%;
+            min-height: 80px;
+        }
+    }
+
+    // Вариант: снизу
+    &.tree-trash-bottom {
+        flex-direction: column;
+        
+        .tree-trash-zone {
+            width: 100%;
+            min-height: 80px;
+            order: 2; // чтобы был после дерева
+        }
+        
+        .tree-builder-container {
+            order: 1;
+        }
+    }
+
+    // Вариант: слева
+    &.tree-trash-left {
+        flex-direction: row;
+        
+        .tree-trash-zone {
+            height: 100%;
+            min-width: 80px;
+            writing-mode: vertical-lr; // вертикальный текст
+        }
+    }
+
+    // Вариант: справа
+    &.tree-trash-right {
+        flex-direction: row;
+        
+        .tree-trash-zone {
+            height: 100%;
+            min-width: 80px;
+            writing-mode: vertical-lr;
+            order: 2;
+        }
+        
+        .tree-builder-container {
+            order: 1;
+        }
+    }
+}
+
+.tree-builder-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.tree-trash-zone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background: #f8f8f8;
+    transition: all 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    padding: 16px;
+    user-select: none;
+
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+
+    &.active {
+        border-color: #ff4444;
+        background: #ffebee;
+        box-shadow: 0 0 20px rgba(255, 68, 68, 0.2);
+        transform: scale(1.02);
+    }
+
+    // Для вертикального текста
+    &[style*="writing-mode"] {
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+        padding: 16px 8px;
+    }
+}

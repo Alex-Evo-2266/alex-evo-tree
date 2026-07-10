@@ -1,8 +1,13 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+/// <reference types="vitest" />
 
-// https://vite.dev/config/
+import { defineConfig } from 'vite';
+import dts from "vite-plugin-dts";
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+import { libInjectCss } from 'vite-plugin-lib-inject-css';
+
+// https://vitejs.dev/config/
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -11,8 +16,14 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [react()],
   test: {
+    globals: true,
+    // включает describe/it/expect без импорта
+    environment: "jsdom",
+    // нужен для тестирования DOM/React
+    setupFiles: "./src/tests/setup.ts" // опционально
+    ,
+
     projects: [{
       extends: true,
       plugins: [
@@ -30,8 +41,32 @@ export default defineConfig({
           instances: [{
             browser: 'chromium'
           }]
-        }
+        },
+        setupFiles: ['.storybook/vitest.setup.ts']
       }
     }]
+  },
+  base: "/alex-evo-tree/",
+  plugins: [react(), libInjectCss(), dts({
+    insertTypesEntry: true,
+    exclude: ["./src/stories"]
+  })],
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/lib/index.ts'),
+      name: "alex-evo-tree",
+      formats: ["es", "umd"],
+      fileName: format => `alex-evo-tree.${format}.js`
+    },
+    rollupOptions: {
+      external: ["react", "react-dom", "react-router-dom", "@dnd-kit/core", "@dnd-kit/sortable"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          "react-router-dom": "ReactRouterDOM"
+        }
+      }
+    }
   }
 });

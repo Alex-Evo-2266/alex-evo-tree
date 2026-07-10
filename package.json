@@ -1,6 +1,6 @@
 {
   "name": "alex-evo-tree",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "pub_no_patch": "npm run build && npm publish",
     "pub": "npm run build && npm version patch && npm publish"
   },
   "main": "./dist/alex-evo-tree.umd.js",
@@ -23,6 +24,7 @@
     }
   },
   "peerDependencies": {
+    "@dnd-kit/core": "*",
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*"
@@ -44,7 +46,7 @@
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
+    "@vitejs/plugin-react": "^4.3.1",
     "@vitest/browser-playwright": "^4.1.9",
     "@vitest/coverage-v8": "^4.1.9",
     "eslint": "^10.5.0",
@@ -56,16 +58,15 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.8.2",
-    "storybook": "^10.4.6",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.61.0",
-    "vite": "^8.1.0",
-    "vite-plugin-dts": "^5.0.3",
-    "vitest": "^4.1.9"
-  },
-  "dependencies": {
-    "@dnd-kit/core": "^6.3.1",
     "sass": "^1.101.0",
-    "sass-loader": "^17.0.0"
+    "sass-loader": "^17.0.0",
+    "storybook": "^10.4.6",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.61.0",
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^5.0.3",
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vitest": "^4.1.9",
+    "@dnd-kit/core": "^6.3.1"
   }
 }
